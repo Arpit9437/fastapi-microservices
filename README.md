@@ -1,6 +1,6 @@
 # FastAPI Microservices Platform with Nginx API Gateway
 
-A containerized microservices backend built with **FastAPI**, **PostgreSQL**, **Redis** and an **Nginx** reverse proxy that acts as the single entry point for all services.
+A containerized microservices backend built with **FastAPI** and **PostgreSQL**, with an **Nginx** reverse proxy acting as the single entry point for all services.
 
 ---
 
@@ -15,7 +15,6 @@ The system is split into three independent services behind one gateway:
 | **Payment Service** | Payment processing, status tracking, refunds |
 | **Nginx Gateway** | Routing, rate limiting, TLS termination, docs routing |
 | **PostgreSQL** | One database per service (database-per-service pattern) |
-| **Redis** | Caching and session data |
 | **Docker Compose** | Orchestrates everything with health checks |
 
 ---
@@ -24,7 +23,7 @@ The system is split into three independent services behind one gateway:
 
 - **Backend:** Python, FastAPI, Pydantic, SQLAlchemy
 - **Auth:** JWT (bearer tokens)
-- **Data:** PostgreSQL, Redis
+- **Data:** PostgreSQL
 - **Gateway:** Nginx (HTTP + HTTPS)
 - **DevOps:** Docker, Docker Compose
 
@@ -192,7 +191,6 @@ Every service reads its settings from environment variables:
 | Variable | Purpose |
 |----------|---------|
 | `DATABASE_URL` | PostgreSQL connection string |
-| `REDIS_URL` | Redis connection string |
 | `JWT_SECRET` | Key used to sign tokens |
 | `LOG_LEVEL` | `DEBUG`, `INFO`, `WARNING` or `ERROR` |
 
@@ -212,8 +210,8 @@ Every service reads its settings from environment variables:
 ## 💻 Local Development
 
 ```bash
-# Start only the dependencies (PostgreSQL is mapped to host port 5434)
-docker compose up -d postgres redis
+# Start the database dependency (PostgreSQL is mapped to host port 5434)
+docker compose up -d postgres
 
 # Run one service directly
 cd services/user-service
@@ -243,7 +241,7 @@ uvicorn app.main:app --reload --port 8001
 - Use a secrets manager (Docker secrets, Vault, etc.)
 - Restrict CORS to your own domain
 - Tune PostgreSQL connection pooling and Nginx worker processes
-- Consider Redis caching strategies and read replicas for scale
+- Consider database caching and read replicas for scale
 
 ---
 

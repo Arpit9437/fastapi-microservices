@@ -11,9 +11,6 @@ class Settings(BaseSettings):
     # Database
     database_url: str = "postgresql://postgres:postgres@localhost:5432/payment_db"
     
-    # Redis
-    redis_url: str = "redis://localhost:6379"
-    
     # JWT
     jwt_secret: str = "your-secret-key-change-in-production"
     jwt_algorithm: str = "HS256"
